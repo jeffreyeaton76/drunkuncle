@@ -32,13 +32,15 @@ var getMentions = function (randomTweet) {
 var getDT = function (mentions) {
     var dt_options = {
         user_id: 25073877,
-        trim_user: true
+        trim_user: true,
+        count: 100,
+        include_rts: false
     }
     Twitter.get('statuses/user_timeline', dt_options, function (err, data) {
 
         if (!err) {
             // remove tweets that involve other accounts
-            var goodTweets = data.filter(tweet => tweet.text.indexOf("@") > -1);
+            var goodTweets = data.filter(tweet => tweet.text.indexOf("@") < 0);
 
             // get a new random tweet from @realDonaldTrump for each mention
             mentions.forEach(function (mention) {
